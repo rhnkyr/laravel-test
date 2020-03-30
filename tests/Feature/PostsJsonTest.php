@@ -72,7 +72,7 @@
             $post = factory(Post::class)->create();
 
             $this->json('DELETE', route('posts-json.destroy', $post->id))
-                ->assertExactJson(['deleted' => false]);
+                ->assertExactJson(['deleted' => true]);
 
             $this->assertCount(0, app(Post::class)->all());
         }
