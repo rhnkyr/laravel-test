@@ -17,6 +17,7 @@
         {
 
             $data = [
+                'user_id' => 1,
                 'title'   => $this->faker->sentence,
                 'content' => $this->faker->paragraphs(5, true)
             ];
@@ -33,14 +34,23 @@
 
             $post = factory(Post::class)->create();
 
+            $title = $this->faker->sentence;
+            $content = $this->faker->paragraphs(3, true);
+
             $data = [
-                'title'   => $this->faker->sentence,
-                'content' => $this->faker->paragraphs(5, true)
+                'user_id' => 2,
+                'title'   => $title,
+                'content' => $content
             ];
 
             $this->put(route('posts.update', $post->id), $data)
                 ->assertStatus(200)
                 ->assertJson($data);
+
+            $this->assertCount(1, app(Post::class)->all());
+            $this->assertEquals(2, app(Post::class)->first()->user_id);
+            $this->assertEquals($title, app(Post::class)->first()->title);
+            $this->assertEquals($content, app(Post::class)->first()->content);
 
 
         }
