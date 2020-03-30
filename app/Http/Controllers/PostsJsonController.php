@@ -14,7 +14,7 @@
          */
         public function index()
         {
-            //
+            return app(Post::class)->select('id', 'title', 'content')->get();
         }
 
 
@@ -39,7 +39,7 @@
          */
         public function show(Post $posts_json)
         {
-            return $posts_json->only('id', 'title', 'content');
+            return $posts_json->only('id', 'user_id', 'title', 'content');
         }
 
 
